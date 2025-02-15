@@ -1,95 +1,57 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 
-export default function Home() {
+const Equipos = ({ equipos }) => {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <div className={styles.container__list}>
+      <h2 className={styles.title}>Equipos de Fútbol</h2>
+      {equipos.map((equipo) => (
+        <div key={equipo.id}>
+          <h3 className={styles.nameclub}>{equipo.nombre}</h3>
+          <ul>
+            {equipo.plantilla.map((jugador) => (
+              <li className={styles.container__list} key={jugador.id}>
+                <img src={jugador.foto} alt={jugador.nombre} className={styles.jugadorFoto} />
+                <strong>{jugador.nombre}</strong>
+                <p>Altura: {jugador.Altura}m <br /> Peso: {jugador.Peso}Kg</p>
+              </li>
+            ))}
+          </ul>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      ))}
     </div>
+  );
+};
+
+export default function Home() {
+  // Simula la obtención de datos desde tu JSON
+  const equiposData = [
+    {
+      id: 1,
+      nombre: "Real Madrid",
+      plantilla: [
+        { id: 1, nombre: "Eden Hazard", Altura: "1.75", Peso: "74Kg", foto: "/images/hazard.jpg" },
+        { id: 2, nombre: "Gonzalo García", Altura: "1.82", Peso: "74Kg", foto: "/images/gonzalo.jpg" },
+        { id: 3, nombre: "Karim Benzema", Altura: "1.85", Peso: "81Kg", foto: "/images/benzema.jpg" },
+      ],
+    },
+    {
+      id: 2,
+      nombre: "Barcelona",
+      plantilla: [
+        { id: 1, nombre: "Marc-André ter Stegen", Altura: "1.75", Peso: "74Kg", foto: "/images/terstegen.jpg" },
+        { id: 2, nombre: "Iñigo Martinez", Altura: "1.82", Peso: "74Kg", foto: "/images/martinez.jpg" },
+        { id: 3, nombre: "Gavi", Altura: "1.85", Peso: "81Kg", foto: "/images/gavi.jpg" },
+      ],
+    },
+    // ... agregar otros equipos
+  ];
+
+  return (
+    <main className={styles.main}>
+      <div>
+        <h1>Mi Aplicación de Fútbol</h1>
+        <Equipos equipos={equiposData} />
+      </div>
+    </main>
   );
 }
